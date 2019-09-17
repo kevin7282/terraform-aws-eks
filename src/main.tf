@@ -23,7 +23,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "test-eks-ajdev"
+  kubernetes_cluster_name = "test-eks-ajdev"
 }
 
 resource "aws_security_group" "worker_group_mgmt_one" {
@@ -87,23 +87,23 @@ module "vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${local.kubernetes_cluster_name}" = "shared"
   }
 
   public_subnet_tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${local.kubernetes_cluster_name}" = "shared"
     "kubernetes.io/role/elb"                      = "1"
   }
 
   private_subnet_tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${local.kubernetes_cluster_name}" = "shared"
     "kubernetes.io/role/internal-elb"             = "1"
   }
 }
 
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = local.cluster_name
+  cluster_name    = local.kubernetes_cluster_name
   vpc_id          = module.vpc.vpc_id
   subnets         = module.vpc.private_subnets
   manage_aws_auth = true

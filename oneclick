@@ -29,6 +29,7 @@ destroy () {
   echo ">>> oneclick destroy"
 
   echo ">>> destroying infra with terraform..."
+  cd src
   terraform destroy -auto-approve
 
   echo ">>> cleanup..."
