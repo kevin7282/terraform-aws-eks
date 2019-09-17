@@ -18,7 +18,7 @@ deploy () {
 
   echo ">>> checking kubectl..."
   kubectl version
-  kubetctl get nodes
+  kubectl get nodes
   kubectl config current-context
   kubectl config view
 
