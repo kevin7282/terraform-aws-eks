@@ -11,6 +11,7 @@
 
 ## usage
 
+To start the application, you can run `./oneclick deploy`, which essentially runs these commands, but with auto approve:
 ```sh
 # provision with terraform
 cd src
@@ -28,10 +29,12 @@ kubectl config current-context
 kubectl config view
 ```
 
+To bring down the application you can run `./oneclick destroy`, which essentially runs these commands, but with auto approve:
 ```sh
-# wip
-./oneclick deploy
-./oneclick destroy
+# destroy infrastructure
+cd terraform
+terraform destroy -auto-approve
+rm -rf .terraform terraform.tfstate*
 ```
 
 ## references
